@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
+using NotaFiscalFaturamento.API.Interfaces;
 using NotaFiscalFaturamento.Application.DTOs;
 using NotaFiscalFaturamento.Application.Interfaces;
+using NotaFiscalFaturamento.Domain.Enums;
 
 namespace NotaFiscalFaturamento.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class NotaController(INotaService notaService, ILogger<NotaController> logger) : ControllerBase
+public class NotaController(INotaService notaService, IKafkaProducerService kafkaProducerService, ILogger<NotaController> logger) : ControllerBase
 {
+    private readonly IKafkaProducerService _kafkaProducerService = kafkaProducerService;
     private readonly INotaService _notaService = notaService;
     private readonly ILogger<NotaController> _logger = logger;
 
@@ -90,6 +93,27 @@ public class NotaController(INotaService notaService, ILogger<NotaController> lo
         catch (Exception ex)
         {
             _logger.LogError(ex, "PatchNota_Exception");
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpPost("Imprimir/{Id:int}")]
+    public async Task<IActionResult> ImprimirNota([FromRoute] int Id)
+    {
+        try
+        {
+            NotaDTO? notaDbDTO = _notaService.GetById(Id);
+
+            if (notaDbDTO == null)
+                return NotFound();
+
+            await _kafkaProducerService.EnviarNota(notaDbDTO);
+
+            return Ok(notaDbDTO);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "ImprimirNota_Exception");
             return StatusCode(500, ex.Message);
         }
     }

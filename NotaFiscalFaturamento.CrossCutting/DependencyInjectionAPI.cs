@@ -15,7 +15,7 @@ namespace NotaFiscalFaturamento.CrossCutting
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services)
         {
             var connectionString = Environment.GetEnvironmentVariable("CONEXAO_BANCO")
-                ?? Environment.GetEnvironmentVariable("CONEXAO_BANCO_NOTA_FISCAL");
+                ?? Environment.GetEnvironmentVariable("CONEXAO_BANCO_NOTA_FISCAL_FATURAMENTO");
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));

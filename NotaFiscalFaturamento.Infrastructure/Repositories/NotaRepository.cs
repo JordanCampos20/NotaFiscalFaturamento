@@ -1,4 +1,5 @@
-﻿using NotaFiscalFaturamento.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using NotaFiscalFaturamento.Domain.Entities;
 using NotaFiscalFaturamento.Domain.Interfaces;
 using NotaFiscalFaturamento.Infrastructure.Context;
 
@@ -11,7 +12,9 @@ namespace NotaFiscalFaturamento.Infrastructure.Repositories
 
         public Nota GetById(int id)
         {
-            return _context.Notas.Find(id)!;
+            return _context.Notas
+                .AsNoTracking()
+                .FirstOrDefault(item => item.Id == id)!;
         }
 
         public IEnumerable<Nota> GetNotas()

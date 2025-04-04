@@ -4,6 +4,6 @@
     {
         public int? Id { get; set; }
         public int Status { get; set; }
-        public List<int> ProdutosId { get; set; } = [];
+        public List<ProdutoDTO> Produtos { get; set; } = [];
     }
 }

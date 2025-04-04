@@ -1,18 +1,18 @@
-﻿using NotaFiscalFaturamento.Domain.Enums;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NotaFiscalFaturamento.Domain.Entities
 {
-    public class Nota
+    public class Produto
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
-        public StatusEnum Status { get; set; } = StatusEnum.Aberta;
-
-        public List<Produto> Produtos { get; set; } = [];
+        public int Quantidade { get; set; }
 
         public DateTime DataCadastro { get; set; } = DateTime.UtcNow.AddHours(-3);
     }

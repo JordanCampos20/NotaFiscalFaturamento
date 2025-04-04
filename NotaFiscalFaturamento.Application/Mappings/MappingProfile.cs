@@ -9,6 +9,7 @@ namespace NotaFiscalFaturamento.Application.Mappings
         public MappingProfile()
         {
             CreateMap<Nota, NotaDTO>().ReverseMap();
+            CreateMap<Produto, ProdutoDTO>().ReverseMap();
         }
     }
 }

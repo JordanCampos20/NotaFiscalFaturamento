@@ -6,6 +6,7 @@ namespace NotaFiscalFaturamento.Infrastructure.Context
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
         public DbSet<Nota> Notas { get; init; } = null!;
+        public DbSet<Produto> Produtos { get; init; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

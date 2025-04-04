@@ -1,11 +1,17 @@
 using NotaFiscalFaturamento.CrossCutting;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using NotaFiscalFaturamento.API.Services;
+using NotaFiscalFaturamento.API.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddInfrastructureAPI();
+
+builder.Services.AddSingleton<IFaturamentoService, FaturamentoService>();
+builder.Services.AddSingleton<IKafkaProducerService, KafkaProducerService>();
+builder.Services.AddSingleton<IKafkaConsumerService, KafkaConsumerService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
