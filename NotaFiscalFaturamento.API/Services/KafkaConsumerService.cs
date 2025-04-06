@@ -14,7 +14,7 @@ namespace NotaFiscalFaturamento.API.Services
             ConsumerBuilder<string, string>(new ConsumerConfig()
             {
                 BootstrapServers = Environment.GetEnvironmentVariable("CONEXAO_KAFKA"),
-                SecurityProtocol = SecurityProtocol.Ssl,
+                SecurityProtocol = SecurityProtocol.SaslSsl,
                 SaslMechanism = SaslMechanism.Plain,
                 SaslUsername = Environment.GetEnvironmentVariable("USERNAME_KAFKA"),
                 SaslPassword = Environment.GetEnvironmentVariable("PASSWORD_KAFKA"),
