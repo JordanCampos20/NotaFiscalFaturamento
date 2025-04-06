@@ -1,0 +1,6 @@
+﻿services:
+  notafiscalfaturamentoapi:
+    image: notafiscalfaturamentoapi
+    build:
+      context: .
+      dockerfile: Dockerfile
