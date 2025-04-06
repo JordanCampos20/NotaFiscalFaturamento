@@ -17,6 +17,7 @@ jobs:
         run: |
           flyctl secrets set CONEXAO_BANCO="${{ secrets.CONEXAO_BANCO }}"
           flyctl secrets set CONEXAO_KAFKA="${{ secrets.CONEXAO_KAFKA }}"
+          flyctl secrets set GROUPID_KAFKA="${{ secrets.GROUPID_KAFKA }}"
           flyctl secrets set CLIENTID_KAFKA="${{ secrets.CLIENTID_KAFKA }}"
           flyctl secrets set USERNAME_KAFKA="${{ secrets.USERNAME_KAFKA }}"
           flyctl secrets set PASSWORD_KAFKA="${{ secrets.PASSWORD_KAFKA }}"
