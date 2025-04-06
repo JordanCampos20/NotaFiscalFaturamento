@@ -8,6 +8,10 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["NotaFiscalFaturamento.API/NotaFiscalFaturamento.API.csproj", "NotaFiscalFaturamento.API/"]
+COPY ["NotaFiscalFaturamento.Application/NotaFiscalFaturamento.Application.csproj", "NotaFiscalFaturamento.Application/"]
+COPY ["NotaFiscalFaturamento.CrossCutting/NotaFiscalFaturamento.CrossCutting.csproj", "NotaFiscalFaturamento.CrossCutting/"]
+COPY ["NotaFiscalFaturamento.Domain/NotaFiscalFaturamento.Domain.csproj", "NotaFiscalFaturamento.Domain/"]
+COPY ["NotaFiscalFaturamento.Infrastructure/NotaFiscalFaturamento.Infrastructure.csproj", "NotaFiscalFaturamento.Infrastructure/"]
 RUN dotnet restore "NotaFiscalFaturamento.API/NotaFiscalFaturamento.API.csproj"
 COPY . .
 WORKDIR "/src/NotaFiscalFaturamento.API"
