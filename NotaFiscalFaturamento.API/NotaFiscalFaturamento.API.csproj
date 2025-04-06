@@ -17,6 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NotaFiscalFaturamento.CrossCutting\NotaFiscalFaturamento.CrossCutting.csproj" />
+    <ProjectReference Include="..\NotaFiscalFaturamento.Application\NotaFiscalFaturamento.Application.csproj" />
+    <ProjectReference Include="..\NotaFiscalFaturamento.Domain\NotaFiscalFaturamento.Domain.csproj" />
+    <ProjectReference Include="..\NotaFiscalFaturamento.Infrastructure\NotaFiscalFaturamento.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
