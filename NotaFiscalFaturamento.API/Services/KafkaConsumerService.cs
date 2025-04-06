@@ -13,9 +13,12 @@ namespace NotaFiscalFaturamento.API.Services
         private readonly IConsumer<string, string> _consumer = new
             ConsumerBuilder<string, string>(new ConsumerConfig()
             {
-                GroupId = "faturamento-service",
-                BootstrapServers = "localhost:9092",
-                AutoOffsetReset = AutoOffsetReset.Earliest
+                BootstrapServers = Environment.GetEnvironmentVariable("CONEXAO_KAFKA"),
+                SecurityProtocol = SecurityProtocol.Ssl,
+                SaslMechanism = SaslMechanism.Plain,
+                SaslUsername = Environment.GetEnvironmentVariable("USERNAME_KAFKA"),
+                SaslPassword = Environment.GetEnvironmentVariable("PASSWORD_KAFKA"),
+                ClientId = Environment.GetEnvironmentVariable("CLIENTID_KAFKA")
             }).Build();
 
         private readonly string[] _topics = { "estoque-validado", "estoque-insuficiente" };
@@ -41,11 +44,13 @@ namespace NotaFiscalFaturamento.API.Services
                         if (notaEstoque == null)
                             continue;
 
+                        Thread.Sleep(10000);
+
                         StatusEnum status = consume.Topic == "estoque-validado" ? StatusEnum.Aprovada : StatusEnum.Rejeitada;
 
                         _faturamentoService.AtualizarStatusNota(notaEstoque.NotaId, (int)status);
 
-                        Console.WriteLine($"📦 Nota {notaEstoque.NotaId} agora tem status: {status}");
+                        _consumer.Commit(consume);
                     }
                 }
                 catch (Exception ex)

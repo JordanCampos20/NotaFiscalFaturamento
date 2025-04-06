@@ -33,18 +33,25 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AngularCors",
         corsPolicyBuilder => corsPolicyBuilder
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins("http://localhost:4200",
+                "https://notafiscal.jasmim.dev")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
 
 var app = builder.Build();
 
+var consumer = app.Services.GetRequiredService<IKafkaConsumerService>();
+
+_ = Task.Run(consumer.ConsumirNotas);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseCors("AngularCors");
 
 app.UseHttpsRedirection();
 

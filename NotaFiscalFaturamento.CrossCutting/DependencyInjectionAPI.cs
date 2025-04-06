@@ -23,6 +23,9 @@ namespace NotaFiscalFaturamento.CrossCutting
             services.AddScoped<INotaRepository, NotaRepository>();
             services.AddScoped<INotaService, NotaService>();
 
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IProdutoService, ProdutoService>();
+
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());

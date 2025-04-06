@@ -12,7 +12,7 @@ namespace NotaFiscalFaturamento.Domain.Entities
         [Required]
         public StatusEnum Status { get; set; } = StatusEnum.Aberta;
 
-        public List<Produto> Produtos { get; set; } = [];
+        public ICollection<Produto> Produtos { get; set; } = [];
 
         public DateTime DataCadastro { get; set; } = DateTime.UtcNow.AddHours(-3);
     }

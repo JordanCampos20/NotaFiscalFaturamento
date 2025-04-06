@@ -14,12 +14,13 @@ namespace NotaFiscalFaturamento.Infrastructure.Repositories
         {
             return _context.Notas
                 .AsNoTracking()
+                .Include(item => item.Produtos)
                 .FirstOrDefault(item => item.Id == id)!;
         }
 
         public IEnumerable<Nota> GetNotas()
         {
-            return [.. _context.Notas];
+            return [.. _context.Notas.Include(item => item.Produtos)];
         }
 
         public Nota? Create(Nota nota)
@@ -36,7 +37,7 @@ namespace NotaFiscalFaturamento.Infrastructure.Repositories
         {
             if (id != nota.Id)
                 throw new Exception("Nota não condiz com o do objeto!");
-
+            
             _context.Notas.Update(nota);
 
             if (_context.SaveChanges() > 0)

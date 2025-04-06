@@ -10,7 +10,13 @@ namespace NotaFiscalFaturamento.API.Services
         private readonly IProducer<string, string> _producer = new
             ProducerBuilder<string, string>(new ProducerConfig()
             {
-                BootstrapServers = "localhost:9092"
+                BootstrapServers = Environment.GetEnvironmentVariable("CONEXAO_KAFKA"),
+                SecurityProtocol = SecurityProtocol.Ssl,
+                SaslMechanism = SaslMechanism.Plain,
+                SaslUsername = Environment.GetEnvironmentVariable("USERNAME_KAFKA"),
+                SaslPassword = Environment.GetEnvironmentVariable("PASSWORD_KAFKA"),
+                MessageTimeoutMs = 45000,
+                ClientId = Environment.GetEnvironmentVariable("CLIENTID_KAFKA")
             }).Build();
 
         private readonly string _topic = "validar-estoque";                    

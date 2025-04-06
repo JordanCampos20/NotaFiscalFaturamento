@@ -9,7 +9,7 @@ namespace NotaFiscalFaturamento.Domain.Enums
     public enum StatusEnum
     {
         Aberta = 1,
-        Fechada = 2,
+        Aguardando = 2,
         Aprovada = 3,
         Rejeitada = 4
     }
